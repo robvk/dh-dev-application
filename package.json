@@ -4,10 +4,6 @@
   "description": "Application for DatHuis trying to convince them I know what I am doing!",
   "main": "index.js",
   "license": "UNLICENSED",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "node ./server/server.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robvk/dh-dev-application.git"
@@ -16,9 +12,15 @@
   "bugs": {
     "url": "https://github.com/robvk/dh-dev-application/issues"
   },
-  "dependencies": {
-    "express": "^4.16.3",
-    "express-graphql": "^0.6.12",
-    "graphql": "^0.13.2"
+  "scripts": {
+    "setup": "concurrently --kill-others-on-fail \"yarn setup-server\" \"yarn setup-client\"",
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "server": "cd server && yarn start",
+    "setup-server": "cd server && yarn",
+    "client": "cd client && yarn start",
+    "setup-client": "cd client && yarn && yarn build"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
   }
 }
