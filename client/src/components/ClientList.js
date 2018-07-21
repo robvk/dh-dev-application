@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "lodash";
 
+import "./ClientList.css";
 import type { Client } from "../lib";
 
 type Props = {
