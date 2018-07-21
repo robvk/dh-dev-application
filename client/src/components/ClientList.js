@@ -1,9 +1,14 @@
 import React from "react";
 import _ from "lodash";
 
-import "./ClientList.css";
+import type { Client } from "../lib";
 
-const ClientList = ({ clients }) => {
+type Props = {
+  clients: Array<Client>
+}
+
+const ClientList = (props: Props) => {
+  const { clients } = props;
   return (
     <div className="client-dropdown-list">
       {_.map(clients, client => {

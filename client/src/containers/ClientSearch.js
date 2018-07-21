@@ -5,8 +5,15 @@ import "./ClientSearch.css";
 import ClientList from "../components/ClientList";
 import { findClientsAsync } from "../services/clients";
 
-class ClientSearch extends Component {
-  constructor(props) {
+import type { Client } from "../lib";
+
+type State = {
+  searchString: string,
+  clients: Array<Client>
+}
+
+class ClientSearch extends Component<{}, State> {
+  constructor(props: {}) {
     super(props);
 
     this.state = {
@@ -18,14 +25,14 @@ class ClientSearch extends Component {
     this.onReceiveData.bind(this);
   }
 
-  onReceiveData(clientList) {
+  onReceiveData(clientList: Array<Client>) {
     this.setState({
       ...this.state,
       clients: clientList
     });
   }
 
-  inputChanged(newInputString) {
+  inputChanged(newInputString: string) {
     this.setState({
       ...this.state,
       searchString: newInputString

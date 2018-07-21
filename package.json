@@ -18,7 +18,7 @@
     "server": "cd server && yarn start",
     "setup-server": "cd server && yarn",
     "client": "cd client && yarn start",
-    "setup-client": "cd client && yarn && yarn build"
+    "setup-client": "cd client && yarn && flow-typed install && yarn build"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
