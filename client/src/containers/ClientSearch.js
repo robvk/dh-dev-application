@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import _ from "lodash";
 
+import "./ClientSearch.css";
+import ClientList from "../components/ClientList";
 import { findClientsAsync } from "../services/clients";
 
 class ClientSearch extends Component {
@@ -34,21 +36,25 @@ class ClientSearch extends Component {
 
   render() {
     const { searchString, clients } = this.state;
+    const displayClients = searchString ? _.slice(clients, 0, 10) : [];
+    const isSearching = !!searchString;
+
+    /* CONSIDERATION: Could have used the classNames library, but only needed this once
+       so decided against it for now */
+    const searchFieldClassNames = ["client-search__field"];
+    if(isSearching) {
+      searchFieldClassNames.push("client_search__field--dropdown-showing");
+    };
 
     return (
-      <div>
+      <div className="client-search">
         <input
+          className={searchFieldClassNames.join(" ")}
           type="text"
           value={searchString}
           onChange={event => this.inputChanged(event.target.value)}
         />
-        {_.map(clients, client => {
-          return (
-            <p key={client.id}>
-              {client.first_name} {client.last_name} from {client.origin}
-            </p>
-          );
-        })}
+        {isSearching ? <ClientList clients={displayClients} /> : null}
       </div>
     );
   }

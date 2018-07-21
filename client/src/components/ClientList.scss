@@ -1,0 +1,18 @@
+@import "../appColors";
+
+.client-dropdown-list {
+  z-index: 1;
+  width: 100%;
+  border: 1px solid $primary-color;
+  border-top: 0;
+  box-sizing: border-box;
+}
+
+.client-dropdown-list__item {
+  padding: 10px;
+}
+
+.client-dropdown-list__item:hover {
+  background-color: $primary-color;
+  color: $background-color;
+}

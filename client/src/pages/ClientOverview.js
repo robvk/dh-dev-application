@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import ClientSearch from '../containers/ClientSearch';
+import "./ClientOverview.css";
 
 /**
  * A non-descript app page where our search component could live
@@ -8,7 +10,7 @@ import ClientSearch from '../containers/ClientSearch';
 class ClientOverview extends Component {
   render() {
     return (
-      <div>
+      <div className="client-overview-page">
         <ClientSearch />
       </div>
     );

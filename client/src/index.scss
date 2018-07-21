@@ -1,8 +1,11 @@
+@import 'appColors';
+
 body {
   margin: 0;
   padding: 0;
   font-family: f37_ginger, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.6;
-  color: #333;
-  background-color: #fff; }
+  color: $foreground-color;
+  background-color: $background-color;
+}

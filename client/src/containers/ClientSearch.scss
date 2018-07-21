@@ -1,0 +1,30 @@
+@import "../appColors";
+
+.client-search {
+  padding: 10px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.client-search__field {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid;
+  border-color: $foreground-color;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.client-search__field:focus {
+  border-color: $primary-color;
+  outline: none;
+}
+
+.client_search__field--dropdown-showing {
+  border-color: $primary-color;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 0;
+}
