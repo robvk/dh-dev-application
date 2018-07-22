@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const query = searchString => `
+const clientSearchQuery = searchString => `
   {
     clients(searchString: "${searchString}") {
       id
@@ -15,5 +15,5 @@ const query = searchString => `
 
 export const findClientsAsync = (searchString: string, callback: Function) =>
   axios
-    .get(`/graphql?query=${query(searchString)}`)
+    .get(`/graphql?query=${clientSearchQuery(searchString)}`)
     .then(res => callback(res.data.data.clients));

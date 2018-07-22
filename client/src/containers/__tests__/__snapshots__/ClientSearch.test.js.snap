@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="client-search"
+>
+  <input
+    className="client-search__field"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+</div>
+`;

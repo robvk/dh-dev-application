@@ -15,10 +15,13 @@
   "scripts": {
     "setup": "concurrently --kill-others-on-fail \"yarn setup-server\" \"yarn setup-client\"",
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "test": "concurrently --kill-others-on-fail \"yarn test-server\" \"yarn test-client\"",
     "server": "cd server && yarn start",
     "setup-server": "cd server && yarn",
+    "test-server": "cd server && yarn test -- --coverage",
     "client": "cd client && yarn start",
-    "setup-client": "cd client && yarn && flow-typed install && yarn build"
+    "setup-client": "cd client && yarn && flow-typed install && yarn build",
+    "test-client": "cd client && yarn test -- --coverage"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"

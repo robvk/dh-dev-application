@@ -3,7 +3,7 @@ import _ from "lodash";
 
 import "./ClientSearch.css";
 import ClientList from "../components/ClientList";
-import { findClientsAsync } from "../services/clients";
+import { findClientsAsync } from "../services/clientApi";
 
 import type { Client } from "../lib";
 
@@ -50,7 +50,7 @@ class ClientSearch extends Component<{}, State> {
        so decided against it for now */
     const searchFieldClassNames = ["client-search__field"];
     if(isSearching) {
-      searchFieldClassNames.push("client_search__field--dropdown-showing");
+      searchFieldClassNames.push("client-search__field--dropdown-showing");
     };
 
     return (

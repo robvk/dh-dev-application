@@ -25,7 +25,7 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start-js": "yarn flow && react-scripts start",
+    "start-js": "react-scripts start",
     "start": "concurrently \"yarn watch-css\" \"yarn start-js\"",
     "build-js": "yarn flow && react-scripts build",
     "build": "concurrently \"yarn build-css\" \"yarn build-js\"",
@@ -35,9 +35,23 @@
   },
   "devDependencies": {
     "concurrently": "^3.6.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "flow-bin": "^0.77.0",
     "flow-typed": "^2.5.1",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4"
+  },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "collectCoverageFrom": [
+      "**/src/**.{js,jsx}",
+      "!**/src/index.js",
+      "!**/src/setupTests.js",
+      "!**/src/services/**Api.js",
+      "!**/node_modules/**",
+      "!<rootDir>/src/setupTests.js"
+    ]
   }
 }
