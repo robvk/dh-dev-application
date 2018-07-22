@@ -4,35 +4,47 @@ exports[`renders correctly 1`] = `
 <div
   className="client-dropdown-list"
 >
-  <div
-    className="client-dropdown-list__item"
+  <ClientListItem
+    client={
+      Object {
+        "email": "rchipchase0@joomla.org",
+        "first_name": "Rochella",
+        "gender": "Female",
+        "id": "59a2afbbfc13ae278700044c",
+        "last_name": "Chipchase",
+        "origin": "Egypt",
+        "photo": "https://robohash.org/molestiaedoloremquesed.jpg?size=50x50&set=set1",
+      }
+    }
     key="59a2afbbfc13ae278700044c"
-  >
-    Rochella
-     
-    Chipchase
-     from 
-    Egypt
-  </div>
-  <div
-    className="client-dropdown-list__item"
+  />
+  <ClientListItem
+    client={
+      Object {
+        "email": "smayler1@goo.ne.jp",
+        "first_name": "Sophia",
+        "gender": "Female",
+        "id": "59a2afbbfc13ae278700044d",
+        "last_name": "Mayler",
+        "origin": "Zimbabwe",
+        "photo": "https://robohash.org/perspiciatisoditatque.png?size=50x50&set=set1",
+      }
+    }
     key="59a2afbbfc13ae278700044d"
-  >
-    Sophia
-     
-    Mayler
-     from 
-    Zimbabwe
-  </div>
-  <div
-    className="client-dropdown-list__item"
+  />
+  <ClientListItem
+    client={
+      Object {
+        "email": "bnassi2@goodreads.com",
+        "first_name": "Bartram",
+        "gender": "Male",
+        "id": "59a2afbbfc13ae278700044e",
+        "last_name": "Nassi",
+        "origin": "Egypt",
+        "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+      }
+    }
     key="59a2afbbfc13ae278700044e"
-  >
-    Bartram
-     
-    Nassi
-     from 
-    Egypt
-  </div>
+  />
 </div>
 `;

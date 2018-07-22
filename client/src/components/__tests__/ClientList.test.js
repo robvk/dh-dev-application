@@ -43,8 +43,8 @@ it("renders correctly", () => {
   expect(wrapper).toMatchSnapshot();
 });
 
-it("has a div for every client", () => {
+it("has a child for every client", () => {
   const wrapper = shallow(<ClientList />);
   wrapper.setProps(testProps);
-  expect(wrapper.find("div").length).toBe(4);
+  expect(wrapper.find("ClientListItem").length).toBe(3);
 });

@@ -1,7 +1,6 @@
 const request = require("supertest");
 
 const { app } = require("../../app");
-const { clientSearchQuery } = require("../../../api/clients");
 
 /**
  * Usually we would need to mock the database, but as it is already a mocked database

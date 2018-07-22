@@ -2,23 +2,25 @@ import React from "react";
 import _ from "lodash";
 
 import "./ClientList.css";
-import type { Client } from "../lib";
+import ClientListItem from "./ClientListItem";
+import type { Client } from "../lib/flowTypes";
 
 type Props = {
-  clients: Array<Client>
-}
+  clients: Array<Client>,
+  selectedClient: Client
+};
 
 const ClientList = (props: Props) => {
-  const { clients } = props;
+  const { clients, selectedClient } = props;
   return (
     <div className="client-dropdown-list">
-      {_.map(clients, client => {
-        return (
-          <div className="client-dropdown-list__item" key={client.id}>
-            {client.first_name} {client.last_name} from {client.origin}
-          </div>
-        );
-      })}
+      {_.map(clients, client => (
+        <ClientListItem
+          key={client.id}
+          client={client}
+          isSelected={selectedClient && client.id === selectedClient.id}
+        />
+      ))}
     </div>
   );
 };

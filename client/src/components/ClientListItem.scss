@@ -1,0 +1,11 @@
+@import "../appColors";
+
+.client-dropdown-list-item {
+  padding: 10px;
+}
+
+.client-dropdown-list-item:hover,
+.client-dropdown-list-item--selected {
+  background-color: $primary-color;
+  color: $background-color;
+}
