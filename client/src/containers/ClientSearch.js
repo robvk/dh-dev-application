@@ -10,7 +10,7 @@ import type { Client } from "../lib";
 type State = {
   searchString: string,
   clients: Array<Client>
-}
+};
 
 class ClientSearch extends Component<{}, State> {
   constructor(props: {}) {
@@ -46,12 +46,13 @@ class ClientSearch extends Component<{}, State> {
     const displayClients = searchString ? _.slice(clients, 0, 10) : [];
     const isSearching = !!searchString;
 
-    /* CONSIDERATION: Could have used the classNames library, but only needed this once
-       so decided against it for now */
+    /* CONSIDERATION: Could have used the classNames library, which is recommended by react
+     * but only needed this once so decided against it for now 
+     */
     const searchFieldClassNames = ["client-search__field"];
-    if(isSearching) {
+    if (isSearching) {
       searchFieldClassNames.push("client-search__field--dropdown-showing");
-    };
+    }
 
     return (
       <div className="client-search">
