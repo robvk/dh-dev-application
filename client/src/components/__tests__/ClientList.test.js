@@ -48,3 +48,9 @@ it("has a child for every client", () => {
   wrapper.setProps(testProps);
   expect(wrapper.find("ClientListItem").length).toBe(3);
 });
+
+it("renders correctly when no result", () => {
+  const wrapper = shallow(<ClientList />);
+  wrapper.setProps({ clients: [] });
+  expect(wrapper).toMatchSnapshot();
+});

@@ -27,21 +27,21 @@ describe("the component", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it("renders correctly with a full list", () => {
+    const wrapper = shallow(<ClientSearch />);
+    wrapper.setState({ searchString: "ab", fullClientList: [], focused: true });
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it("hides the dropdown when there is no input", () => {
     const wrapper = shallow(<ClientSearch />);
     expect(wrapper.find(ClientList).length).toEqual(0);
   });
 
-  it("shows the dropdown when there is input", () => {
+  it("shows the dropdown when there is input and focus", () => {
     const wrapper = shallow(<ClientSearch />);
-    wrapper.setState({ searchString: "ab", fullClientList: [] });
+    wrapper.setState({ searchString: "ab", fullClientList: [], focused: true });
     expect(wrapper.find(ClientList).length).toEqual(1);
-  });
-
-  it("only passes max 10 items to the ClientList", () => {
-    const wrapper = shallow(<ClientSearch />);
-    wrapper.setState({ searchString: "ab", fullClientList: manyClients });
-    expect(wrapper.find(ClientList).props().clients.length).toEqual(10);
   });
 
   it("should set client state on receiving data", () => {
@@ -56,6 +56,13 @@ describe("the component", () => {
     expect(wrapper.state("searchString")).toEqual("");
     wrapper.find("input").simulate("change", { target: { value: "foo" } });
     expect(wrapper.state("searchString")).toEqual("foo");
+  });
+
+  it("should change focus when the user focuses the input box", () => {
+    const wrapper = shallow(<ClientSearch />);
+    expect(wrapper.state("focused")).toEqual(false);
+    wrapper.find("input").simulate("focus");
+    expect(wrapper.state("focused")).toEqual(true);
   });
 });
 

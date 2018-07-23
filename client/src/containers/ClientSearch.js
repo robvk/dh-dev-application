@@ -11,7 +11,8 @@ import type { Client } from "../lib/flowTypes";
 type State = {
   searchString: string,
   fullClientList: Array<Client>,
-  selectedIndex: number
+  selectedIndex: number,
+  focused: boolean
 };
 
 const maxElementsToShow = 10;
@@ -23,7 +24,8 @@ class ClientSearch extends Component<{}, State> {
     this.state = {
       fullClientList: [],
       searchString: "",
-      selectedIndex: -1
+      selectedIndex: -1,
+      focused: false
     };
 
     this.inputChanged.bind(this);
@@ -71,7 +73,15 @@ class ClientSearch extends Component<{}, State> {
   }
 
   isSearching() {
-    return !!this.state.searchString;
+    return !!this.state.searchString && this.state.focused;
+  }
+
+  onBlur() {
+    this.setState({ ...this.state, focused: false });
+  }
+
+  onFocus() {
+    this.setState({ ...this.state, focused: true });
   }
 
   clientsToDisplay() {
@@ -103,6 +113,8 @@ class ClientSearch extends Component<{}, State> {
           value={searchString}
           onChange={event => this.inputChanged(event.target.value)}
           onKeyDown={event => this.inputKeyPressed(event.key)}
+          onFocus={this.onFocus.bind(this)}
+          onBlur={this.onBlur.bind(this)}
         />
         {isSearching ? (
           <ClientList

@@ -1,0 +1,15 @@
+@import "../appColors";
+
+.no-result {
+  flex-direction: column;
+  display: flex;
+  text-align: center;
+}
+
+.no-result-shrug {
+  font-size: 40px;
+}
+
+.no-result-text {
+  color: $disabled-color;
+}

@@ -6,10 +6,31 @@ exports[`the component renders correctly 1`] = `
 >
   <input
     className="client-search__field"
+    onBlur={[Function]}
     onChange={[Function]}
+    onFocus={[Function]}
     onKeyDown={[Function]}
     type="text"
     value=""
+  />
+</div>
+`;
+
+exports[`the component renders correctly with a full list 1`] = `
+<div
+  className="client-search"
+>
+  <input
+    className="client-search__field client-search--dropdown-showing"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="ab"
+  />
+  <ClientList
+    clients={Array []}
   />
 </div>
 `;

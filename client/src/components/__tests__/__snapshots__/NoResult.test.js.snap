@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="no-result"
+>
+  <span
+    className="no-result-shrug"
+  >
+    ¯\\_(ツ)_/¯
+  </span>
+  <span
+    className="no-result-text"
+  >
+    No results found
+  </span>
+</div>
+`;
