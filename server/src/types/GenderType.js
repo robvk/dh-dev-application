@@ -4,7 +4,7 @@
 
 const { GraphQLEnumType } = require("graphql");
 
-const GenderType = new GraphQLEnumType({
+const genderType = new GraphQLEnumType({
   name: "genderStateEnum",
   values: {
     male: {
@@ -17,5 +17,5 @@ const GenderType = new GraphQLEnumType({
 });
 
 module.exports = {
-  GenderType
+  genderType
 };

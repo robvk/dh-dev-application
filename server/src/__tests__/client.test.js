@@ -4,7 +4,7 @@ const { app } = require("../../app");
 
 /**
  * Usually we would need to mock the database, but as it is already a mocked database
- * I left that part out
+ * so I left that part out
  */
 let server = null;
 
@@ -34,22 +34,17 @@ describe("GET clients", () => {
   });
 
   it("should not expose the index property", done => {
-    request(app)
-      .post(`/graphql?query=${clientSearchQuery("Port")}`)
-      .expect(200)
-      .expect(res => {
-        const clients = res.body.data.clients;
-        clients.forEach(client => expect(client.index).toBeFalsy());
-      })
-      .end((err, res) => done(err));
+    testClientQuery(
+      "Port",
+      clients => clients.forEach(client => expect(client.index).toBeFalsy()),
+      done
+    );
   });
 
   it("should return all the requested client fields", done => {
-    request(app)
-      .post(`/graphql?query=${clientSearchQuery("Port")}`)
-      .expect(200)
-      .expect(res => {
-        const clients = res.body.data.clients;
+    testClientQuery(
+      "Port",
+      clients => {
         const fields = [
           "id",
           "first_name",
@@ -62,52 +57,37 @@ describe("GET clients", () => {
         clients.forEach(client =>
           fields.forEach(field => expect(client[field]).toBeTruthy())
         );
-      })
-      .end((err, res) => done(err));
+      },
+      done
+    );
   });
 
   it("should filter on origin", done => {
-    request(app)
-      .post(`/graphql?query=${clientSearchQuery("Portugal")}`)
-      .expect(200)
-      .expect(res => {
-        const clients = res.body.data.clients;
-        expect(clients.length).toBe(44);
-      })
-      .end((err, res) => done(err));
+    testClientQuery(
+      "Portugal",
+      clients => expect(clients.length).toBe(44),
+      done
+    );
   });
 
   it("should filter on first name", done => {
-    request(app)
-      .post(`/graphql?query=${clientSearchQuery("Lisa")}`)
-      .expect(200)
-      .expect(res => {
-        const clients = res.body.data.clients;
-        expect(clients.length).toBe(4);
-      })
-      .end((err, res) => done(err));
+    testClientQuery("Lisa", clients => expect(clients.length).toBe(4), done);
   });
 
   it("should filter on last name", done => {
-    request(app)
-      .post(`/graphql?query=${clientSearchQuery("Willavoys")}`)
-      .expect(200)
-      .expect(res => {
-        const clients = res.body.data.clients;
-        expect(clients.length).toBe(1);
-      })
-      .end((err, res) => done(err));
+    testClientQuery(
+      "Willavoys",
+      clients => expect(clients.length).toBe(1),
+      done
+    );
   });
 
   it("should not filter on email", done => {
-    request(app)
-      .post(`/graphql?query=${clientSearchQuery("lbishop3@whitehouse.gov")}`)
-      .expect(200)
-      .expect(res => {
-        const clients = res.body.data.clients;
-        expect(clients.length).toBe(0);
-      })
-      .end((err, res) => done(err));
+    testClientQuery(
+      "lbishop3@whitehouse.gov",
+      clients => expect(clients.length).toBe(0),
+      done
+    );
   });
 
   it("should return 404 for everything else", done => {
@@ -119,3 +99,13 @@ describe("GET clients", () => {
 });
 
 afterAll(() => server.close());
+
+const testClientQuery = (searchString, checkClients, done) => {
+  request(app)
+    .post(`/graphql?query=${clientSearchQuery(searchString)}`)
+    .expect(200)
+    .expect(res => {
+      checkClients(res.body.data.clients);
+    })
+    .end((err, res) => done(err));
+};

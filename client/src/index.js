@@ -7,4 +7,6 @@ const root: ?Element = document.getElementById("root");
 
 if (root) {
   ReactDOM.render(<ClientOverview />, root);
+} else {
+  console.log("No root element found");
 }

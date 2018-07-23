@@ -1,11 +1,11 @@
 const { GraphQLList, GraphQLString, GraphQLNonNull } = require("graphql");
 
 const { findClientsWithSubString } = require("../db/databaseAbstraction");
-const { ClientType } = require("../types/ClientType");
+const { clientType } = require("../types/clientType");
 
 const clientQueries = {
   clients: {
-    type: new GraphQLList(ClientType),
+    type: new GraphQLList(clientType),
     args: {
       searchString: {
         type: new GraphQLNonNull(GraphQLString),

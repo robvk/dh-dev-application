@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import _ from "lodash";
+import slice from "lodash/slice";
 import classNames from "classnames";
 
 import "./ClientSearch.css";
@@ -137,10 +137,10 @@ const visibleElementsBasedOnIndex = (
   visibleItemIndex: number,
   maxElementsToShow: number
 ): Array<any> => {
-  if (!array[visibleItemIndex]) return _.slice(array, 0, maxElementsToShow);
+  if (!array[visibleItemIndex]) return slice(array, 0, maxElementsToShow);
   const startIndex =
     Math.floor(visibleItemIndex / maxElementsToShow) * maxElementsToShow;
-  return _.slice(array, startIndex, startIndex + maxElementsToShow);
+  return slice(array, startIndex, startIndex + maxElementsToShow);
 };
 
 export default ClientSearch;

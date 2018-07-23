@@ -1,7 +1,7 @@
 const { GraphQLObjectType, GraphQLString } = require("graphql");
-const { GenderType } = require("./GenderType");
+const { genderType } = require("./genderType");
 
-const ClientType = new GraphQLObjectType({
+const clientType = new GraphQLObjectType({
   name: "Client",
   description: "Our clients and everything we have on them",
   fields: {
@@ -12,7 +12,7 @@ const ClientType = new GraphQLObjectType({
     first_name: { type: GraphQLString },
     last_name: { type: GraphQLString },
     email: { type: GraphQLString },
-    gender: { type: GenderType },
+    gender: { type: genderType },
     photo: {
       type: GraphQLString,
       description: "A url to a hosted foto of the client"
@@ -24,4 +24,4 @@ const ClientType = new GraphQLObjectType({
   }
 });
 
-module.exports = { ClientType };
+module.exports = { clientType };

@@ -1,5 +1,5 @@
 import React from "react";
-import _ from "lodash";
+import map from "lodash/map";
 
 import "./ClientList.css";
 import ClientListItem from "./ClientListItem";
@@ -14,7 +14,7 @@ const ClientList = (props: Props) => {
   const { clients, selectedClient } = props;
   return (
     <div className="client-dropdown-list">
-      {_.map(clients, client => (
+      {map(clients, client => (
         <ClientListItem
           key={client.id}
           client={client}
