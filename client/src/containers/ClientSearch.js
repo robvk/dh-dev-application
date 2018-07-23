@@ -32,7 +32,6 @@ class ClientSearch extends Component<{}, State> {
     this.isSearching.bind(this);
     this.inputKeyPressed.bind(this);
     this.clientsToDisplay.bind(this);
-    this.onReceiveData.bind(this);
   }
 
   inputChanged(newInputString: string) {
