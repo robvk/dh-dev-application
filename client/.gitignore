@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/flow-typed
+# /flow-typed Removed so flow-typed global isn't required, simplifies setup for this demo
 
 # testing
 /coverage

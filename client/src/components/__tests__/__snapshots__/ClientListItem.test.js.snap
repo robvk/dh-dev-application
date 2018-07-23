@@ -4,10 +4,19 @@ exports[`renders correctly 1`] = `
 <div
   className="client-dropdown-list-item"
 >
-  Rochella
-   
-  Chipchase
-   from 
-  Egypt
+  <img
+    alt="client"
+    className="client-dropdown-list-item-photo"
+    src="https://robohash.org/molestiaedoloremquesed.jpg?size=50x50&set=set1"
+  />
+  <span
+    className="client-dropdown-list-item-text"
+  >
+    Rochella
+     
+    Chipchase
+     from 
+    Egypt
+  </span>
 </div>
 `;

@@ -20,7 +20,7 @@
     "setup-server": "cd server && yarn",
     "test-server": "cd server && yarn test -- --coverage",
     "client": "cd client && yarn start",
-    "setup-client": "cd client && yarn && flow-typed install && yarn build",
+    "setup-client": "cd client && yarn",
     "test-client": "cd client && yarn test -- --coverage"
   },
   "devDependencies": {
