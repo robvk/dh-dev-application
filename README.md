@@ -6,6 +6,7 @@ I've tried to think of the high-level choices that have been made and answering 
 ## Quick start guide
 In the main directory (dh-dev-application):
 ```
+yarn
 yarn setup
 yarn start
 ```
