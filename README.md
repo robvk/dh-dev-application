@@ -1,7 +1,7 @@
 # dh-dev-application
 Application for DatHuis trying to convince them I know what I am doing! Here goes...
 
-I've tried to think of the high-level choices that have been made and answering them in this readme. In certain parts of the code I have also added a 'CONSIDERATION' comment for smaller considerations that I had while building. Hopefully this gives a little insight into why I did certain things. If I missed something or you want to discuss something then feel free to ask!
+I've tried to think of the high-level choices that have been made and answering them in this readme. In certain parts of the code I have also added comments for smaller considerations that I had while building. Hopefully this gives a little insight into why I did certain things. If I missed something or you want to discuss something then feel free to ask!
 
 ## Quick start guide
 In the main directory (dh-dev-application):
@@ -14,12 +14,20 @@ This will setup both the server and client and then start both. You can also sta
 
 It should open up a browser automatically but if that fails: [http://localhost:3000/](http://localhost:3000/).
 
+A tester remarked that it didn't work automatically for him on MacOS which seemed to be a problem of the concurrently library (even though they say they are cross-platform). He had to do the steps manually using 2 terminals. For both server and client it is the following in the respective directories:
+
+```
+yarn
+yarn start
+```
+
 ## Application structure
 ```
 client
 ├── public
 └── src
 |   └── api
+|   └── assets
 |   └── components
 |   └── containers
 |   └── lib
@@ -34,6 +42,7 @@ server
 ### client structure
 - `public` public facing client code
 - `api` all code to communicate with our server or possible other parts of the web
+- `assets` all our images
 - `components` all our functional, stateless, dumb components that just put things on the screen
 - `containers` all our state handling containers that handle logic
 - `lib` a place to put shared code
@@ -71,6 +80,9 @@ Hard to fulfill a react developer position without using react.
 
 ### react-scripts
 react-scripts is installed as part of the create-react-app process and saves a lot of configuration that you only have to do once. Added the sass builder though.
+
+### classnames
+A simple library to add class names based on js expressions. It is recommended by the react team and very simple so expect no problems using it.
 
 ### jest, supertest, enzyme
 These are all the test packages. Supertest to test express servers, jest for both client and server, enzyme for easier react component support.
