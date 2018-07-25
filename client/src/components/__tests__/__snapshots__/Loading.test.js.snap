@@ -5,6 +5,7 @@ exports[`renders correctly 1`] = `
   className="loading"
 >
   <img
+    alt="loading"
     src="loading.svg"
   />
 </div>
