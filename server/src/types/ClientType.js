@@ -24,4 +24,6 @@ const clientType = new GraphQLObjectType({
   }
 });
 
-module.exports = { clientType };
+module.exports = {
+  clientType
+};

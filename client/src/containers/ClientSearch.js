@@ -3,16 +3,20 @@ import slice from "lodash/slice";
 import classNames from "classnames";
 
 import "./ClientSearch.css";
-import ClientList from "../components/ClientList";
 import { findClientsAsync } from "../api/clientApi";
+import DropdownListPage from "../components/DropdownListPage";
+import ClientListItem from "../components/ClientListItem";
 
 import type { Client } from "../lib/flowTypes";
 
 type State = {
   searchString: string,
   fullClientList: Array<Client>,
-  selectedIndex: number,
-  focused: boolean
+  totalCount: number,
+  highlightedIndex: number,
+  focused: boolean,
+  currentPage: number,
+  loading: boolean
 };
 
 const maxElementsToShow = 10;
@@ -22,14 +26,16 @@ class ClientSearch extends Component<{}, State> {
     super(props);
 
     this.state = {
-      fullClientList: [],
       searchString: "",
-      selectedIndex: -1,
-      focused: false
+      fullClientList: [],
+      totalCount: 0,
+      highlightedIndex: -1,
+      focused: false,
+      currentPage: 1,
+      loading: false
     };
 
     this.inputChanged.bind(this);
-    this.isSearching.bind(this);
     this.inputKeyPressed.bind(this);
     this.clientsToDisplay.bind(this);
   }
@@ -37,42 +43,126 @@ class ClientSearch extends Component<{}, State> {
   inputChanged(newInputString: string) {
     this.setState({
       ...this.state,
-      searchString: newInputString
+      fullClientList: [],
+      searchString: newInputString,
+      highlightedIndex: -1,
+      currentPage: 1
     });
 
-    findClientsAsync(newInputString, this.onReceiveData.bind(this));
+    if (newInputString.length > 0) {
+      this.setState({
+        loading: true
+      });
+      findClientsAsync(
+        newInputString,
+        maxElementsToShow,
+        0,
+        this.onReceiveData.bind(this)
+      );
+    }
   }
 
-  onReceiveData(clientList: Array<Client>) {
-    this.setState({ ...this.state, fullClientList: clientList });
+  onReceiveData(clientList: Array<Client>, totalCount: number) {
+    this.setState({
+      ...this.state,
+      totalCount,
+      loading: false,
+      fullClientList: this.state.fullClientList.concat(clientList)
+    });
+  }
+
+  pageStartIndex(page: number = this.state.currentPage) {
+    return (page - 1) * maxElementsToShow;
+  }
+
+  pageEndIndex(page: number = this.state.currentPage) {
+    return page * maxElementsToShow - 1;
   }
 
   inputKeyPressed(key: string) {
     if (key === "ArrowDown") {
-      const { selectedIndex, fullClientList } = this.state;
-      this.setState({
-        ...this.state,
-        selectedIndex: neighbouringElementIndexIfPresent(
-          fullClientList,
-          selectedIndex,
-          false
-        )
-      });
+      const { highlightedIndex, fullClientList } = this.state;
+      const pageStart = this.pageStartIndex();
+      const pageEnd = this.pageEndIndex();
+
+      if (highlightedIndex < pageStart || highlightedIndex > pageEnd) {
+        this.setState({
+          ...this.state,
+          highlightedIndex: pageStart
+        });
+      } else if (highlightedIndex === pageEnd) {
+        this.gotoNextPage();
+      } else if (fullClientList[highlightedIndex + 1]) {
+        this.setState({
+          ...this.state,
+          highlightedIndex: highlightedIndex + 1
+        });
+      }
     } else if (key === "ArrowUp") {
-      const { selectedIndex, fullClientList } = this.state;
+      const { highlightedIndex } = this.state;
+      const pageStart = this.pageStartIndex();
+      const pageEnd = this.pageEndIndex();
+
+      if (highlightedIndex < pageStart || highlightedIndex > pageEnd) {
+        this.setState({
+          ...this.state,
+          highlightedIndex: pageEnd
+        });
+      } else if (highlightedIndex === pageStart) {
+        this.gotoPreviousPage();
+      } else {
+        this.setState({
+          ...this.state,
+          highlightedIndex: highlightedIndex - 1
+        });
+      }
+    }
+  }
+
+  gotoPreviousPage() {
+    const { currentPage, highlightedIndex } = this.state;
+    if (!(currentPage === 1)) {
+      const page = currentPage - 1;
       this.setState({
         ...this.state,
-        selectedIndex: neighbouringElementIndexIfPresent(
-          fullClientList,
-          selectedIndex,
-          true
-        )
+        currentPage: page,
+        highlightedIndex: this.hasHighlighted()
+          ? this.pageEndIndex(page)
+          : highlightedIndex
       });
     }
   }
 
-  isSearching() {
-    return !!this.state.searchString && this.state.focused;
+  gotoNextPage() {
+    if (this.hasNextPage()) {
+      const {
+        searchString,
+        currentPage,
+        highlightedIndex,
+        fullClientList
+      } = this.state;
+      const nextPage = currentPage + 1;
+
+      this.setState({
+        ...this.state,
+        currentPage: nextPage,
+        highlightedIndex: this.hasHighlighted()
+          ? this.pageStartIndex(nextPage)
+          : highlightedIndex
+      });
+
+      if (fullClientList.length < nextPage * maxElementsToShow) {
+        this.setState({
+          loading: true
+        });
+        findClientsAsync(
+          searchString,
+          maxElementsToShow,
+          currentPage * maxElementsToShow,
+          this.onReceiveData.bind(this)
+        );
+      }
+    }
   }
 
   onBlur() {
@@ -84,29 +174,40 @@ class ClientSearch extends Component<{}, State> {
   }
 
   clientsToDisplay() {
-    const { fullClientList, selectedIndex } = this.state;
-    return visibleElementsBasedOnIndex(
-      fullClientList,
-      selectedIndex,
-      maxElementsToShow
-    );
+    const { fullClientList } = this.state;
+    const startIndex = this.startIndex();
+    return slice(fullClientList, startIndex, startIndex + maxElementsToShow);
   }
 
-  selectedClient() {
-    const { fullClientList, selectedIndex } = this.state;
-    return fullClientList[selectedIndex];
+  startIndex() {
+    return (this.state.currentPage - 1) * maxElementsToShow;
+  }
+
+  hasHighlighted() {
+    return this.state.highlightedIndex >= 0;
+  }
+
+  highlightedIndexOnPage() {
+    const { highlightedIndex } = this.state;
+    return this.hasHighlighted() ? highlightedIndex - this.startIndex() : null;
+  }
+
+  hasNextPage() {
+    const { currentPage, totalCount } = this.state;
+    return currentPage * maxElementsToShow < totalCount;
   }
 
   render() {
-    const { searchString } = this.state;
-    const isSearching = this.isSearching();
-    const displayClients = isSearching ? this.clientsToDisplay() : [];
+    const { loading, searchString, focused, totalCount } = this.state;
+    const displayClients = focused ? this.clientsToDisplay() : [];
+    const dropdownShowing = !!searchString && focused;
+    const highlightedIndex = this.highlightedIndexOnPage();
 
     return (
       <div className="client-search">
         <input
           className={classNames("client-search__field", {
-            "client-search--dropdown-showing": isSearching
+            "client-search--dropdown-showing": dropdownShowing
           })}
           type="text"
           value={searchString}
@@ -115,43 +216,24 @@ class ClientSearch extends Component<{}, State> {
           onFocus={this.onFocus.bind(this)}
           onBlur={this.onBlur.bind(this)}
         />
-        {isSearching ? (
-          <ClientList
-            clients={displayClients}
-            selectedClient={this.selectedClient()}
+        {dropdownShowing ? (
+          <DropdownListPage
+            list={displayClients}
+            totalCount={totalCount}
+            startNumber={this.startIndex() + 1}
+            loading={loading}
+            renderItem={(item, idx) => (
+              <ClientListItem
+                key={item.id}
+                client={item}
+                isSelected={idx === highlightedIndex}
+              />
+            )}
           />
         ) : null}
       </div>
     );
   }
 }
-
-//  returns the index of the neighbouring element in the array.
-//  If there is no neighbour it will return the given index
-
-const neighbouringElementIndexIfPresent = (
-  array: Array<any>,
-  index: number,
-  selectNext: boolean
-): number => {
-  const nextIndex = selectNext ? index - 1 : index + 1;
-  return array[nextIndex] ? nextIndex : index;
-};
-
-//  returns the array of elements that includes the element at visibleItemIndex if the array
-//  is split in blocks of maxElementsToShow.
-//  (e.g. if we split the array in blocks of 10 and the index is 23, we return elements 20 - 30)
-//  If there is no element at visibleItemIndex then the first maxElementsToShow are returned
-
-const visibleElementsBasedOnIndex = (
-  array: Array<any>,
-  visibleItemIndex: number,
-  maxElementsToShow: number
-): Array<any> => {
-  if (!array[visibleItemIndex]) return slice(array, 0, maxElementsToShow);
-  const startIndex =
-    Math.floor(visibleItemIndex / maxElementsToShow) * maxElementsToShow;
-  return slice(array, startIndex, startIndex + maxElementsToShow);
-};
 
 export default ClientSearch;

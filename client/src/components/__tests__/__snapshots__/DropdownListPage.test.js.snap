@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="dropdown-list"
+>
+  <div
+    className="dropdown-list-bottom-text"
+  >
+    1-10 of 20 results
+  </div>
+</div>
+`;
+
+exports[`renders correctly when empty 1`] = `
+<div
+  className="dropdown-list"
+>
+  <NoResult />
+</div>
+`;
+
+exports[`renders correctly when loading 1`] = `
+<div
+  className="dropdown-list"
+>
+  <Loading />
+</div>
+`;

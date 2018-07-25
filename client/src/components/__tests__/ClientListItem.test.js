@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import ClientListItem from "../ClientListItem";
+import placeholder from "../../assets/no-photo-placeholder.png";
 
 const testClient = {
   id: "59a2afbbfc13ae278700044c",
@@ -21,6 +22,18 @@ it("renders correctly", () => {
 });
 
 it("adds css modifier if selected", () => {
-  const wrapper = shallow(<ClientListItem client={testClient} isSelected={true} />);
+  const wrapper = shallow(
+    <ClientListItem client={testClient} isSelected={true} />
+  );
   expect(wrapper.is(".client-dropdown-list-item--selected")).toBe(true);
+});
+
+it("renders placeholder if no photo", () => {
+  const wrapper = shallow(
+    <ClientListItem
+      client={{ ...testClient, photo: null }}
+      isSelected={false}
+    />
+  );
+  expect(wrapper.find("img").prop("src")).toEqual(placeholder);
 });

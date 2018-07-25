@@ -16,7 +16,7 @@ exports[`the component renders correctly 1`] = `
 </div>
 `;
 
-exports[`the component renders correctly with a full list 1`] = `
+exports[`the component renders correctly with results 1`] = `
 <div
   className="client-search"
 >
@@ -29,8 +29,128 @@ exports[`the component renders correctly with a full list 1`] = `
     type="text"
     value="ab"
   />
-  <ClientList
-    clients={Array []}
+  <DropdownListPage
+    list={
+      Array [
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+        Object {
+          "email": "bnassi2@goodreads.com",
+          "first_name": "Bartram",
+          "gender": "Male",
+          "id": "59a2afbbfc13ae278700044e",
+          "last_name": "Nassi",
+          "origin": "Egypt",
+          "photo": "https://robohash.org/aeablanditiis.bmp?size=50x50&set=set1",
+        },
+      ]
+    }
+    loading={false}
+    renderItem={[Function]}
+    startNumber={1}
+    totalCount={0}
+  />
+</div>
+`;
+
+exports[`the component renders correctly without results 1`] = `
+<div
+  className="client-search"
+>
+  <input
+    className="client-search__field client-search--dropdown-showing"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="ab"
+  />
+  <DropdownListPage
+    list={Array []}
+    loading={false}
+    renderItem={[Function]}
+    startNumber={1}
+    totalCount={0}
   />
 </div>
 `;

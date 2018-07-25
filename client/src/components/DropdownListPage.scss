@@ -1,9 +1,15 @@
 @import "../appColors";
 
-.client-dropdown-list {
+.dropdown-list {
   z-index: 1;
   width: 100%;
   border: 1px solid $primary-color;
   border-top: 0;
   box-sizing: border-box;
+}
+
+.dropdown-list-bottom-text {
+  color: $disabled-color;
+  text-align: center;
+  width: 100%;
 }
